@@ -19,6 +19,7 @@ io.on('connection', (socket) => {
     socket.on("send-message", (data) => {
         const { id, chat } = data;
         socket.broadcast.to(id).emit("receive-message", chat);
+        socket.broadcast.emit('new_message', chat);
     });
 
     socket.on("join-room", (data) => {
