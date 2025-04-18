@@ -30,14 +30,14 @@ export const initSocket = (server) => {
       chatIds.forEach((chatId) => socket.join(chatId));
     });
 
-    socket.on("user:reciever:active", (chatId) => {
+    socket.on("user:reciever:active", ({chatId, userId}) => {
       socket.join(chatId);
-      socket.to(chatId).emit("user:reciever:active", {isActive: true});
+      socket.to(chatId).emit("user:reciever:active", {isActive: true, userId});
     });
     
-    socket.on("user:reciever:inactive", (chatId) => {
+    socket.on("user:reciever:inactive", ({chatId, userId}) => {
       socket.join(chatId);
-      socket.to(chatId).emit("user:reciever:inactive", {isActive: false});
+      socket.to(chatId).emit("user:reciever:inactive", {isActive: false, userId});
     });
 
     // ✅ Leave chat room
